@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body{
+    background-color: #FAEBC8;
+}
+section{
+    background-color: white;
+    box-shadow: 1px 5px 31px 5px rgba(0,0,0,0.64);
+    border-radius: 10px;
+    margin: 5rem 10rem;
+    display: grid;
+    grid-auto-flow: column; 
+    gap: 1%;
+    padding: 1rem 9rem;
+    text-align: center;
+    position: absolute;
+}
+article{
+    margin: 40px;
+}
+
+section article img{
+    width: 80px;
+}
+
+article p{
+    text-align: left;
+    width: 232px;
+    font-size: 20px;
+    min-height: 15rem;
+}
+div{
+    color: #94594F;
+    text-shadow: 10px 10px 2px #CE5937;
+}

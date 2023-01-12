@@ -1,0 +1,8 @@
+nav{
+    background-color: purple;
+    align-items: center;
+}
+li,a{
+    color: white;
+    align-self: center;
+}

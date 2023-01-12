@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+body{
+    font-family: "Open Sans", sans-serif;
+}
+
+header article{
+display: inline-block;
+}
+
+header article:nth-child(1){
+    font-size: 20px;
+    margin-left: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-left: 3px solid gray;
+    padding: 0 34rem 0 1rem;
+    
+}
+header article:nth-child(2){
+    border-left: 3px solid gray;
+    font-size: 20px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 0 15rem 0 1rem;
+}
+
+header article h2{
+    font-size: 40px;
+    margin: 0px 0 0 1rem;
+    font-style: italic;
+    font-weight: 200;
+    letter-spacing: 10px;
+}
+
+p {
+    color: #656565;
+    margin: 20px 0 10px 1rem;
+}
+
+main article{
+    font-size: 21px;
+    margin-left: 3rem;
+    display: inline-block;
+    width: 27%;
+}
+
+main article p{
+    color: #656565;
+}
+main article img{
+    position: relative;
+    width: 29rem;
+    height: 17rem;
+}
