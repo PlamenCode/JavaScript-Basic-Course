@@ -1,53 +1,33 @@
-function carFactory(object){
+function solve() {
 
-    function wheelPick(wheelsize){
-       let wheelSizing = wheelsize % 2 == 0 ? wheelsize - 1 : wheelsize;
-       const wheels = new Array(4).fill(wheelSizing);
-       return wheels;
-
+    const text = document.getElementById("text").value;
+    const caseing = document.getElementById("naming-convention").value;
+    const resultContainer = document.getElementById("result");
+  
+    const splitted = text.split(' ');
+  
+    let resultString = "";
+  
+    if (caseing == "Pascal Case") {
+  
+      for (let i = 0; i < splitted.length; i++) {
+        resultString += splitted[i][0].toUpperCase() +
+          splitted[i].slice(1, splitted[i].length).toLowerCase();
+      }
+      resultContainer.textContent = resultString;
+  
+    } else if (caseing == "Camel Case") {
+  
+      resultString += splitted[0][0].toLowerCase()
+        + splitted[0].slice(1, splitted[0].length).toLowerCase();
+  
+      for (let i = 1; i < splitted.length; i++) {
+        resultString += splitted[i][0].toUpperCase() +
+          splitted[i].slice(1, splitted[i].length).toLowerCase();
+      }
+      resultContainer.textContent = resultString;
+  
+    } else {
+      resultContainer.textContent = "Error!";
     }
-
-    function enginePick(hp){
-        const engine = {};
-        if(hp <= 90){
-            engine.power = 90;
-            engine.volume = 1800;
-        } else if(hp <= 120){
-            engine.power = 120;
-            engine.volume = 2400
-        } else if(hp <= 200){
-            engine.power = 200;
-            engine.volume = 3500;
-        }
-        return engine;
-    }
-
-
-    function newCarriage(type, color){
-        const carriage = {type, color};
-        return carriage;
-    }
-
-  return {
-    model: object.model,
-    engine: enginePick(object.power),
-    carriage: newCarriage(object.carriage, object.color),
-    wheels: wheelPick(object.wheelsize)
   }
-    
-}
-console.log(carFactory({
-    model: 'Ferrari',
-    power: 200,
-    color: 'red',
-    carriage: 'coupe',
-    wheelsize: 21
-}))
-
-console.table(carFactory({
-    model: 'VW Golf II',
-    power: 90,
-    color: 'blue',
-    carriage: 'hatchback',
-    wheelsize: 14 }
-));
