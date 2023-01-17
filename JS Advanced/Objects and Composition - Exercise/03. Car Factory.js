@@ -1,11 +1,5 @@
 function carFactory(object){
 
-    function wheelPick(wheelsize){
-       let wheelSizing = wheelsize % 2 == 0 ? wheelsize - 1 : wheelsize;
-       const wheels = new Array(4).fill(wheelSizing);
-       return wheels;
-
-    }
 
     function enginePick(hp){
         const engine = {};
@@ -28,6 +22,13 @@ function carFactory(object){
         return carriage;
     }
 
+
+    function wheelPick(wheelsize){
+        let wheelSizing = wheelsize % 2 == 0 ? wheelsize - 1 : wheelsize;
+        const wheels = new Array(4).fill(wheelSizing);
+        return wheels;
+     }
+
   return {
     model: object.model,
     engine: enginePick(object.power),
@@ -36,6 +37,21 @@ function carFactory(object){
   }
     
 }
+
+carFactory({
+    model: 'VW Golf II',
+    power: 90,
+    color: 'blue',
+    carriage: 'hatchback',
+    wheelsize: 14 }
+)
+carFactory({
+    model: 'Opel Vectra',
+    power: 110,
+    color: 'grey',
+    carriage: 'coupe',
+    wheelsize: 17 }
+)
 console.log(carFactory({
     model: 'Ferrari',
     power: 200,
@@ -43,11 +59,3 @@ console.log(carFactory({
     carriage: 'coupe',
     wheelsize: 21
 }))
-
-console.table(carFactory({
-    model: 'VW Golf II',
-    power: 90,
-    color: 'blue',
-    carriage: 'hatchback',
-    wheelsize: 14 }
-));
