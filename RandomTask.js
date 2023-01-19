@@ -1,33 +1,37 @@
-function solve() {
+function solve(input){ 
+      let avgSalary = 0;
+      let totalSalary = 0;
+      let currentAvgSalary = 0;
+      let bestName = '';
+      let output = {};
 
-    const text = document.getElementById("text").value;
-    const caseing = document.getElementById("naming-convention").value;
-    const resultContainer = document.getElementById("result");
-  
-    const splitted = text.split(' ');
-  
-    let resultString = "";
-  
-    if (caseing == "Pascal Case") {
-  
-      for (let i = 0; i < splitted.length; i++) {
-        resultString += splitted[i][0].toUpperCase() +
-          splitted[i].slice(1, splitted[i].length).toLowerCase();
+      for (let inputElement of input) {
+         let restaurantInfo = inputElement.split(' - ');
+         let restaurantName = restaurantInfo.shift();
+         let workersData = restaurantInfo.shift().split(', ');
+
+         for (let worker of workersData) {
+            let [name, salary] = worker.split(' ');
+            
+            if(!output.hasOwnProperty(restaurantName)){
+               output[restaurantName] = {}
+            } 
+            if(output.hasOwnProperty(restaurantName)){
+               output[restaurantName][name] = Number(salary);
+            }
+         }
       }
-      resultContainer.textContent = resultString;
-  
-    } else if (caseing == "Camel Case") {
-  
-      resultString += splitted[0][0].toLowerCase()
-        + splitted[0].slice(1, splitted[0].length).toLowerCase();
-  
-      for (let i = 1; i < splitted.length; i++) {
-        resultString += splitted[i][0].toUpperCase() +
-          splitted[i].slice(1, splitted[i].length).toLowerCase();
+
+      let entries = Object.entries(output);
+
+      for (let entry of entries) {
+         let key = entry[0];
+         let values = Object.entries(entry[1]);
+         console.log(values[0]);
+         
       }
-      resultContainer.textContent = resultString;
-  
-    } else {
-      resultContainer.textContent = "Error!";
-    }
-  }
+         
+   }
+
+
+solve(["Mikes - Steve 1000, Ivan 200, Paul 800", "Fleet - Maria 850, Janet 650"])
