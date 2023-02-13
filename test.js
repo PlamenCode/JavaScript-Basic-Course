@@ -1,3 +1,8 @@
-let num1 = 10.5;
-let num2 = -4.5;
-console.log(num1 + num2);
+function checkFlowersAvailable(flower, gardenArr) {
+  if (gardenArr.indexOf(flower) >= 0) {
+      console.log( `The ${flower} are available!`)
+  } else {
+      console.log( `The ${flower} are sold! You need to purchase more!`);
+  }
+}
+checkFlowersAvailable('Rose', ["Rose", "Lily", "Orchid"])

@@ -18,7 +18,12 @@ function solve() {
     function onPublish(ev){
       ev.preventDefault();
 
-      if(firstNameInput == '' || lastNameInput == '' || ageInput == '' || storyTitleInput == '' || genreInput == '' || storyTextInput == ''){
+      if(firstNameInput.value == '' 
+      || lastNameInput.value == '' 
+      || ageInput.value == '' 
+      || storyTitleInput.value == '' 
+      || genreInput.value == '' 
+      || storyTextInput.value == ''){
         return;
       }
 
@@ -44,7 +49,7 @@ function solve() {
       articlePreview.appendChild(genreP);
 
       let storyTextP = document.createElement('p');
-          storyTextP.textContent = `"${storyTextInput.value}"`;
+          storyTextP.textContent = `${storyTextInput.value}`;
       articlePreview.appendChild(storyTextP);
 
       let saveBtn = document.createElement('button');
@@ -108,7 +113,7 @@ function solve() {
 
       saveBtn.addEventListener('click', onSave);
       function onSave(ev){
-        // ev.preventDefault();
+        ev.preventDefault();
 
         let completeField = document.createElement('h1');
            completeField.textContent = "Your scary story is saved!";
@@ -120,7 +125,7 @@ function solve() {
 
       deleteBtn.addEventListener('click', onDel);
       function onDel(ev){
-        // ev.preventDefault();
+        ev.preventDefault();
 
         publishBtn.disabled = false;
 

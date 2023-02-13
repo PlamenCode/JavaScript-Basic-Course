@@ -16,14 +16,18 @@ function solve() {
     nextBtn.addEventListener('click', onNext);
     function onNext(ev){
         ev.preventDefault();
-        if(firstName.value == '' || lastName.value == '' || checkInDate.value == '' || checkOutDate.value == '' 
-        || countPeople.value == '' || new Date(checkInDate.value) >= new Date(checkOutDate.value)){
+        if(firstName.value == '' 
+        || lastName.value == '' 
+        || checkInDate.value == '' 
+        || checkOutDate.value == '' 
+        || countPeople.value == '' 
+        || checkInDate.value > checkOutDate.value){
             return;
         }
         
         //create reservation list Items
         let h3 = document.createElement('h3');
-        h3.textContent = `${firstName.value} ${lastName.value}`;
+        h3.textContent = `Name: ${firstName.value} ${lastName.value}`;
         let dateIn = document.createElement('p');
         dateIn.textContent = `From date: ${checkInDate.value}`;
         let dateOut  = document.createElement('p');
@@ -42,10 +46,13 @@ function solve() {
         let editBtn = document.createElement('button');
         editBtn.setAttribute('class', 'edit-btn');
         editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', editClick);
         
         let continueBtn = document.createElement('button');
         continueBtn.setAttribute('class', 'continue-btn');
         continueBtn.textContent = 'Continue';
+        continueBtn.addEventListener('click',continueClick);
+
         
         //creating li and adding article
         let liItemToAdd = document.createElement('li');
@@ -73,9 +80,9 @@ function solve() {
         //dissable the Next Btn
         nextBtn.disabled = true;
 
-        editBtn.addEventListener('click', editClick);
 
-        function editClick(ev){
+        function editClick(){
+        
             firstName.value = editFirstName;
             lastName.value = editLastName;
             checkInDate.value = editDateIn;
@@ -86,9 +93,9 @@ function solve() {
             nextBtn.disabled = false;
         }
 
-        continueBtn.addEventListener('click',continueClick);
 
-        function continueClick(ev){
+        function continueClick(){
+
             let liElCon = document.createElement('li');
             liElCon.setAttribute('class', 'reservation-content');
 
@@ -98,10 +105,12 @@ function solve() {
             let confirmBtn = document.createElement('button');
             confirmBtn.setAttribute('class', 'confirm-btn');
             confirmBtn.textContent = 'Confirm';
+            confirmBtn.addEventListener('click', onConfirm);
 
             let cancelBtn = document.createElement('button');
             cancelBtn.setAttribute('class', 'cancel-btn');
             cancelBtn.textContent = 'Cancel';
+            cancelBtn.addEventListener('click', onCancel);
 
             liElCon.appendChild(articleContinue);
             liElCon.appendChild(confirmBtn);
@@ -110,8 +119,7 @@ function solve() {
 
             confirmListEl.appendChild(liElCon);
 
-            confirmBtn.addEventListener('click', onConfirm);
-            function onConfirm(ev){
+            function onConfirm(){
                 liElCon.remove();
                 nextBtn.disabled = false;
 
@@ -119,10 +127,9 @@ function solve() {
                 verification.textContent = 'Confirmed.';
             }
 
-            cancelBtn.addEventListener('click', onCancel);
-            function onCancel(ev){
+            function onCancel(){
                 liElCon.remove();
-                nextBtnElement.disabled = false;
+                nextBtn.disabled = false;
 
                 verification.setAttribute('class', 'reservation-cancelled');
                 verification.textContent = 'Cancelled.';
