@@ -7,6 +7,7 @@ function solve() {
     let checkInDate = document.getElementById('date-in');
     let checkOutDate = document.getElementById('date-out');
     let countPeople = document.getElementById('people-count');
+
     let nextBtn = document.getElementById('next-btn');
     let reservInfoBox = document.querySelector('.info-list');
     let confirmListEl = document.querySelector('.confirm-list');
@@ -132,7 +133,7 @@ function solve() {
                 nextBtn.disabled = false;
 
                 verification.setAttribute('class', 'reservation-cancelled');
-                verification.textContent = 'Cancelled.';
+                verification.textContent = 'Cancelled.'
             }
         }
     }

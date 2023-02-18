@@ -6,83 +6,77 @@ class OnlineShop{
     }
 
     loadingStore(product, quantity, spaceRequired){
-        if(spaceRequired > this.warehouseSpace){
-            throw new Error('Not enough space in the warehouse.');
+        if(this.warehouseSpace < spaceRequired){
+            throw new Error("Not enough space in the warehouse.");
+        };
+
+        let productAdd = {
+            product: product,
+            quantity: quantity
         }
-        this.products.push([product,quantity]);
+        this.products.push(productAdd);
         this.warehouseSpace -= spaceRequired;
         return `The ${product} has been successfully delivered in the warehouse.`;
-    }
+    };
 
     quantityCheck(product, minimalQuantity){
-        if(minimalQuantity <= 0 ){
+        let productCatalog = this.products.find((a) =>{
+            if(a.product == product){
+                return a;
+            }
+            return false;
+        });
+
+        if(!productCatalog){
+            throw new Error(`There is no ${product} in the warehouse.`);
+        };
+        if(minimalQuantity <= 0){
             throw new Error("The quantity cannot be zero or negative.");
-        }
-        let isFound = false;
-        for (const productArr of this.products) {
-            if(productArr[0] == product){
-                isFound = true;
-                if(minimalQuantity <= Number(productArr[1])){
-                    return `You have enough from product ${product}.`;
-                }
-                let difference = minimalQuantity - productArr[1];
-                productArr[1] = minimalQuantity;
-            
-                return `You added ${difference} more from the ${product} products.`
+        };
+
+        if(minimalQuantity <= productCatalog.quantity){
+            return `You have enough from product ${product}.`;
+        };
+
+        let diff = minimalQuantity - productCatalog.quantity;
+        productCatalog.quantity = minimalQuantity;
+        return `You added ${diff} more from the ${product} products.`;
+    };
+
+    sellProduct(product) {
+        let productCatalog = this.products.find((a) =>{
+            if(a.product == product){
+                return a;
             }
-        }
+            return false;
+        });
 
-        if(!isFound){
-            throw new Error(`There is no ${product} in the warehouse.`)
-        }
-    }
+        if(!productCatalog){
+            throw new Error(`There is no ${product} in the warehouse.`);
+        };
+        let soldProduct = {
+            product: product,
+            quantity: 1
+        };
+        productCatalog.quantity -= 1;
+        this.sales.push(soldProduct);
 
-    sellProduct(product){
-        let isFound = false;
-        for (const productArr of this.products) {
-            if(productArr[0] == product){
-                isFound = true;
-                productArr[1]--;
-
-                
-                let soldProductArr = [product,1];
-                this.sales.push(soldProductArr);
-
-                return `The ${product} has been successfully sold.`
-            }
-        }
-
-        if(!isFound){
-            throw new Error(`There is no ${product} in the warehouse.`)
-        }
-    } 
+        return `The ${product} has been successfully sold.`;
+    };
 
     revision(){
-        if(this.sales.length <= 0){
-            throw new Error('There are no sales today!');
-        }
-        let result = '';
+        if(this.sales.length < 1){
+            throw new Error("There are no sales today!");
+        };
 
-        let sales = 0;
-        for (const sold of this.sales) {
-            sales += sold[1];  
-        }
-        result += `You sold ${sales} products today!\n`;
+        let result = `You sold ${this.sales.length} products today!\n`;
         result += `Products in the warehouse:\n`;
-        for (const product of this.products) {
-            result += `${product[0]}-${product[1]} more left\n`
-        }
-        return result;   
-    }
+
+        this.products.forEach(x => {
+            result += `${x.product}-${x.quantity} more left\n`;
+        })
+
+        return result.trim();
+    };
+
 }
-
-const myOnlineShop = new OnlineShop(500)
-console.log(myOnlineShop.loadingStore('headphones', 10, 200));
-console.log(myOnlineShop.loadingStore('laptop', 5, 200));
-
-console.log(myOnlineShop.quantityCheck('headphones', 10));
-console.log(myOnlineShop.quantityCheck('laptop', 10));
-
-console.log(myOnlineShop.sellProduct('headphones'));
-console.log(myOnlineShop.sellProduct('laptop'));
-console.log(myOnlineShop.revision());
